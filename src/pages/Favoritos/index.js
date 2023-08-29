@@ -2,9 +2,12 @@ import Banner from "components/Banner";
 import Titulo from "components/Titulo";
 import styles from "./Favoritos.module.css"
 import Card from "components/Card";
+import { useFavoritoContext } from "contexts/Favoritos";
 
 
 export default function Favoritos() {
+    // recebe o state favorito através do hook personalizado useFavoritoContext.
+    const {favorito} = useFavoritoContext();
   return (
     <>
     <Banner imagem="favoritos" />
@@ -12,7 +15,10 @@ export default function Favoritos() {
         <h1>Meus Favoritos</h1>
     </Titulo>
     <section className={styles.container}>
-        <Card id="2" titulo="Gato gordo" capa="https://media.tenor.com/2XqdnsXiGJUAAAAC/garfield.gif" />
+        {/* faz um map para a lista de favoritos, retornando um componente de Card para cada um, passando as props pelo spread operator e atribuindo uma key para cada um */}
+        {favorito.map(fav => {
+            return <Card {...fav} key={fav.id} />
+        })}
     </section>
     </>
   )
