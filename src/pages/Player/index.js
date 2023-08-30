@@ -2,15 +2,22 @@ import Banner from "components/Banner"
 import styles from "./Player.module.css"
 import Titulo from "components/Titulo"
 import { useParams } from "react-router-dom";
-import videos from "json/db.json"
 import NotFound from "pages/NotFound";
+import { useEffect, useState } from "react";
+
+
 export default function Player() {
+    const [video, setVideo] = useState();
     // recebe o valor do parâmetro definido na rota Player.
-    const parametro = useParams();
-    // itera sobre o array de videos, retornando apenas o video que tenha o mesmo id que o parâmetro da URL. 
-    const video = videos.find(video => {
-        return video.id === Number(parametro.id)
-    })
+    const parametros = useParams();
+    // após a renderização inicial, faz o fetch da API, buscando apenas o vídeo que possui o mesmo id que parâmetro da URL, retornando o valor no estado do video.
+    useEffect(() => {
+        fetch(`https://my-json-server.typicode.com/dinozindev/cinetag-api/videos?id=${parametros.id}`)
+            .then(resposta => resposta.json())
+            .then(dados => {
+                setVideo(...dados)
+            })
+    }, [parametros])
 
     // caso não haja vídeo com o mesmo id que o parâmetro, retorna a página NotFound. 
     if(!video) {
