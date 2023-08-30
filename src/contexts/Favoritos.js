@@ -16,9 +16,9 @@ export default function FavoritosProvider({ children }) {
     )
 }
 
-// hook personalizado useFavoritoContext para adicionar filmes para a lista de favoritos. 
+// hook personalizado useFavoritoContext. Este hook servirá tanto para obter o contexto FavoritosContext, recebendo o estado da lista e sua respectiva função setter, como também retornará a function adicionaFavorito, que servirá para verificar se o card favoritado já está favoritado ou não.  
 export function useFavoritoContext() {
-    // o hook useContext foi usado para acessar os dados compartilhados do contexto FavoritosContext. 
+    // o hook useContext foi usado para acessar os dados compartilhados (props) do contexto FavoritosContext. 
     const { favorito, setFavorito } = useContext(FavoritosContext);
 
     // function que recebe um filme novo que foi favoritado/desfavoritado, adicionando-o na lista. 
